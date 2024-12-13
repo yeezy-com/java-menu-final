@@ -15,5 +15,13 @@ public class Application {
         for (String name : rawCoach.split(",")) {
             names.add(new Name(name));
         }
+
+        List<PickyMenu> pickyMenus = new ArrayList<>();
+        for (Name name : names) {
+            System.out.println();
+            System.out.printf("%s(이)가 못 먹는 메뉴를 입력해 주세요." + System.lineSeparator(), name.getName());
+            String menus = Console.readLine();
+            pickyMenus.add(new PickyMenu(menus));
+        }
     }
 }
