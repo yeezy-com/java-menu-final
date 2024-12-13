@@ -23,4 +23,8 @@ public class Category {
     public String getName() {
         return name;
     }
+
+    public Menu findByName(String name) {
+        return menus.findByName(name);
+    }
 }

@@ -10,7 +10,10 @@ public class Coach {
         this.pickyMenu = pickyMenu;
     }
 
-    public boolean isPossibleMenu() {
+    public boolean isPossibleMenu(Menu menu) {
+        if (pickyMenu.contains(menu)) {
+            return true;
+        }
         return false;
     }
 

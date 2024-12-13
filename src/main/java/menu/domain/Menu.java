@@ -11,4 +11,11 @@ public class Menu {
     public String getName() {
         return menuName;
     }
+
+    public boolean isSameName(String name) {
+        if (menuName.equals(name)) {
+            return true;
+        }
+        return false;
+    }
 }

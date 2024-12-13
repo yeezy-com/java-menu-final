@@ -22,4 +22,15 @@ public class Menus {
     public Menu selectMenu() {
         return new Menu("test");
     }
+
+    public Menu findByName(String name) {
+        return menus.stream()
+                .filter(menu -> menu.isSameName(name))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public boolean contains(Menu menu) {
+        return menus.contains(menu);
+    }
 }

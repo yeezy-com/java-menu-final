@@ -4,6 +4,7 @@ import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import menu.domain.Categories;
 import menu.domain.Category;
 import menu.domain.Coach;
 import menu.domain.Coachs;
@@ -23,7 +24,7 @@ public class Application {
             "깐풍기, 볶음면, 동파육, 짜장면, 짬뽕, 마파두부, 탕수육, 토마토 달걀볶음, 고추잡채",
             "팟타이, 카오 팟, 나시고렝, 파인애플 볶음밥, 쌀국수, 똠얌꿍, 반미, 월남쌈, 분짜",
             "라자냐, 그라탱, 뇨끼, 끼슈, 프렌치 토스트, 바게트, 스파게티, 피자, 파니니");
-    private static List<Category> categories;
+    private static Categories categories;
 
     private static void init() {
         List<String> categoryNames = Arrays.asList("일식", "한식", "중식", "아시안", "양식");
@@ -41,7 +42,7 @@ public class Application {
             tmpCategory.add(new Category(categoryNames.get(idx++), new Menus(tmpMenus)));
         }
 
-        categories = tmpCategory;
+        categories = new Categories(tmpCategory);
     }
 
     public static void main(String[] args) {
@@ -54,11 +55,18 @@ public class Application {
 
         outputView.showEnterMessage();
         List<Name> names = inputManager.inputCoachNames();
-        List<Menus> pickyMenus = inputManager.inputPickyMenus(names);
+        List<Menus> pickyMenus = inputManager.inputPickyMenus(names, categories);
 
         Coachs coaches = Coachs.from(names, pickyMenus);
 
         List<Category> categoryList = selectCategories();
+
+        List<RecommendResult> recommendResults = new ArrayList<>();
+        for (Coach coach : coaches.getCoaches()) {
+            for (Category category : categoryList) {
+                Menu menu = category.selectRandomMenu();
+            }
+        }
     }
 
     private static List<Category> selectCategories() {

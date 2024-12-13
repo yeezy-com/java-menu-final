@@ -3,6 +3,7 @@ package menu.view;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import menu.domain.Categories;
 import menu.domain.Menu;
 import menu.domain.Menus;
 import menu.domain.Name;
@@ -26,11 +27,11 @@ public class InputManager {
         });
     }
 
-    public List<Menus> inputPickyMenus(List<Name> names) {
+    public List<Menus> inputPickyMenus(List<Name> names, Categories categories) {
         return inputIterator.retryUntilSuccess(() -> {
             return names.stream()
                     .map(name -> Arrays.stream(inputView.inputPickyMenus(name.getName()).split(","))
-                            .map(Menu::new)
+                            .map(categories::findByMenuName)
                             .collect(Collectors.toList()))
                     .map(Menus::new)
                     .collect(Collectors.toList());
